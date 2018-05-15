@@ -1,6 +1,6 @@
 {
   "network": "${LITECOIN_NETWORK_NAME}",
-  "port": 3001,
+  "port": 9034,
   "services": [
     "bitcoind",
     "insight-lite-api",
@@ -9,9 +9,14 @@
   ],
   "servicesConfig": {
     "bitcoind": {
+      "sendTxLog": "./data/pushtx.log",
       "spawn": {
         "datadir": "./data",
-        "exec": "./node_modules/.bin/litecoind"
+        "exec": "./node_modules/.bin/litecoind",
+        "rpcqueue": 1000,
+        "rpcport": 8334,
+        "zmqpubrawtx": "tcp://127.0.0.1:28334",
+        "zmqpubhashblock": "tcp://127.0.0.1:28334"
       }
     },
     "insight-lite-ui": {

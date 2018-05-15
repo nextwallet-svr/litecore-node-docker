@@ -15,7 +15,7 @@ RUN apt-get update && \
   wget https://github.com/Yelp/dumb-init/releases/download/v1.2.1/dumb-init_1.2.1_amd64.deb && \
   dpkg -i dumb-init_*.deb
 
-EXPOSE 3001 9333 19335
+EXPOSE 9034 8334
 
 WORKDIR /root/litecoin-node
 COPY litecore-node ./
@@ -38,13 +38,13 @@ RUN apt-get purge -y \
   /tmp/* \
   /var/lib/apt/lists/*
 
-ENV LITECOIN_LIVENET 0
+ENV LITECOIN_LIVENET 1
 ENV API_ROUTE_PREFIX "api"
 ENV UI_ROUTE_PREFIX ""
 
 ENV API_CACHE_ENABLE 1
 
-ENV API_LIMIT_ENABLE 1
+ENV API_LIMIT_ENABLE 0
 ENV API_LIMIT_WHITELIST "127.0.0.1 ::1"
 ENV API_LIMIT_BLACKLIST ""
 
@@ -57,7 +57,7 @@ ENV API_LIMIT_WHITELIST_INTERVAL 10800000
 ENV API_LIMIT_BLACKLIST_COUNT 0
 ENV API_LIMIT_BLACKLIST_INTERVAL 10800000
 
-HEALTHCHECK --interval=5s --timeout=5s --retries=5 CMD curl -s "http://localhost:3001/{$API_ROUTE_PREFIX}/sync" | jq -r -e ".status==\"finished\""
+HEALTHCHECK --interval=5s --timeout=5s --retries=5 CMD curl -s "http://localhost:8334/{$API_ROUTE_PREFIX}/sync" | jq -r -e ".status==\"finished\""
 
 ENTRYPOINT ["/usr/bin/dumb-init", "--", "./litecore-node-entrypoint.sh"]
 
