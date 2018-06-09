@@ -1,4 +1,5 @@
 FROM node:4.8.7-slim
+MAINTAINER Han Haofu <gtxx3600@gmail.com>
 
 RUN apt-get update && \
   apt-get install -y \
@@ -42,7 +43,7 @@ ENV LITECOIN_LIVENET 1
 ENV API_ROUTE_PREFIX "api"
 ENV UI_ROUTE_PREFIX ""
 
-ENV API_CACHE_ENABLE 1
+ENV API_ENABLE_CACHE 1
 
 ENV API_LIMIT_ENABLE 0
 ENV API_LIMIT_WHITELIST "127.0.0.1 ::1"
